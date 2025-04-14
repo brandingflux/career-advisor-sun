@@ -40,7 +40,7 @@ export default function AboutPage() {
       },
     },
     {
-      name: "Ahmad Badawi",
+      name: "Sadiq Izzuddeen",
       role: "AI Integration Specialist",
       bio: "Developed the AI-powered features including the chat assistant and resume analyzer components.",
       image: "/placeholder.svg?height=300&width=300",
@@ -50,7 +50,7 @@ export default function AboutPage() {
       },
     },
     {
-      name: "Aliyu Rabiu Sulaiman",
+      name: "John Paul",
       role: "Backend Developer",
       bio: "Implemented the API endpoints and database integration for storing and retrieving user data and career resources.",
       image: "/placeholder.svg?height=300&width=300",
