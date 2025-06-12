@@ -96,8 +96,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-slate-200">
           <p className="text-slate-600 text-sm text-center">
-            © {new Date().getFullYear()} TechPathAI. Developed by Muhammad Umar Aminu, Muhammad Khalifa, Ahmad Badawi,
-            and Aliyu Rabiu Sulaiman at Skyline University Hackathon.
+            © {new Date().getFullYear()} TechPathAI. Bifusion Tech LTD.
           </p>
         </div>
       </div>

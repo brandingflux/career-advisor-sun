@@ -9,12 +9,20 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 
+// Hooks & Utils
+import { useAuth } from "@/hooks/useAuth"
+import { saveQuizResponse } from "@/lib/quiz"
+
 export default function QuizPage() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
+  const { user, loading: authLoading } = useAuth()
+
+  // Define quiz structure
   const quizQuestions = [
     {
       id: "work-style",
@@ -67,7 +75,7 @@ export default function QuizPage() {
       ],
     },
   ]
-
+  
   const handleNext = () => {
     if (currentStep < quizQuestions.length - 1) {
       setCurrentStep(currentStep + 1)
@@ -82,29 +90,66 @@ export default function QuizPage() {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSubmitting(true)
+    setError(null)
 
-    // In a real app, you would send the answers to an API
-    // For now, we'll simulate a delay and redirect to the results
-    setTimeout(() => {
-      // Determine career based on answers (simplified logic for demo)
-      let career = "web-developer" // default
+    if (!user) {
+      setError("You must be logged in to submit your quiz.")
+      setIsSubmitting(false)
+      return
+    }
 
-      if (answers.tools === "data" || answers.subjects === "math") {
-        career = "data-scientist"
-      } else if (answers.tools === "cloud") {
-        career = "cloud-engineer"
-      } else if (answers.tools === "backend") {
-        career = "backend-developer"
-      }
+    try {
+      // Save response to Appwrite
+      await saveQuizResponse(user.$id, answers)
 
-      router.push(`/roadmap?career=${career}`)
-    }, 1500)
+      // Simulate delay for demo purposes
+      setTimeout(() => {
+        let career = "web-developer" // default
+
+        if (answers.tools === "data" || answers.subjects === "math") {
+          career = "data-scientist"
+        } else if (answers.tools === "cloud") {
+          career = "cloud-engineer"
+        } else if (answers.tools === "backend") {
+          career = "backend-developer"
+        }
+
+        router.push(`/roadmap?career=${career}`)
+      }, 1500)
+
+    } catch (err) {
+      console.error("Error saving quiz:", err)
+      setError("Failed to save your quiz. Please try again.")
+      setIsSubmitting(false)
+    }
   }
 
   const currentQuestion = quizQuestions[currentStep]
   const progress = ((currentStep + 1) / quizQuestions.length) * 100
+
+  // Show loading screen if auth is still checking
+  if (authLoading) {
+    return (
+      <main className="container mx-auto max-w-md py-12 px-4 text-center">
+        <p>Loading user data...</p>
+      </main>
+    )
+  }
+
+  // Redirect if not logged in
+  if (!user) {
+    return (
+      <main className="container mx-auto max-w-md py-12 px-4 text-center">
+        <h1 className="text-2xl font-bold mb-4">Authentication Required</h1>
+        <p className="mb-6">You must be logged in to take the quiz.</p>
+        <Button onClick={() => router.push("/login")}>
+          Log In / Sign Up
+        </Button>
+      </main>
+    )
+  }
 
   return (
     <main className="container mx-auto max-w-3xl py-12 px-4">
@@ -119,6 +164,12 @@ export default function QuizPage() {
           Question {currentStep + 1} of {quizQuestions.length}
         </p>
       </div>
+
+      {error && (
+        <div className="bg-red-100 text-red-700 p-4 rounded mb-6">
+          {error}
+        </div>
+      )}
 
       <Card className="mb-8">
         <CardHeader>

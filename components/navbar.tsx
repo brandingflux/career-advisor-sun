@@ -2,15 +2,37 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { useRouter } from 'next/navigation' // for logout redirect
+import { Menu, X, LogIn, LogOut } from "lucide-react" // add icons
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/hooks/useAuth" // your custom hook
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user, loading } = useAuth()
+  const router = useRouter()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleLogout = async () => {
+    try {
+      const session = await account.getSession('current')
+  
+      if (session) {
+        await fetch('/api/auth/logout')
+      }
+  
+      router.push('/')
+      window.location.reload()
+  
+    } catch (error) {
+      console.error('Logout failed:', error)
+      router.push('/')
+      window.location.reload()
+    }
   }
 
   const navItems = [
@@ -45,9 +67,23 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
-            <Button asChild size="sm" className="ml-4">
-              <Link href="/quiz">Start Quiz</Link>
-            </Button>
+
+            {/* Auth Button */}
+            {!loading && (
+              <Button asChild size="sm" className="ml-4">
+                {user ? (
+                  <button onClick={handleLogout} className="flex items-center gap-2">
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                ) : (
+                  <Link href="/login" className="flex items-center gap-2">
+                    <LogIn className="h-4 w-4" />
+                    Log In
+                  </Link>
+                )}
+              </Button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -89,12 +125,24 @@ export function Navbar() {
               {item.name}
             </Link>
           ))}
+
+          {/* Mobile Auth Button */}
           <div className="pt-2">
-            <Button asChild className="w-full">
-              <Link href="/quiz" onClick={() => setIsMenuOpen(false)}>
-                Start Quiz
-              </Link>
-            </Button>
+            {!loading && (
+              <Button asChild className="w-full">
+                {user ? (
+                  <button onClick={handleLogout} className="flex items-center gap-2 w-full justify-center">
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                ) : (
+                  <Link href="/login" className="flex items-center gap-2 w-full justify-center">
+                    <LogIn className="h-4 w-4" />
+                    Log In
+                  </Link>
+                )}
+              </Button>
+            )}
           </div>
         </div>
       </div>
