@@ -22,37 +22,7 @@ export default function AboutPage() {
     {
       name: "Muhammad Umar Aminu",
       role: "Full Stack Developer",
-      bio: "Led the development of the core application architecture and implemented the career roadmap features.",
-      image: "/placeholder.svg?height=300&width=300",
-      links: {
-        github: "https://github.com",
-        linkedin: "https://linkedin.com",
-      },
-    },
-    {
-      name: "Muhammad Khalifa",
-      role: "Frontend Developer",
-      bio: "Designed and implemented the user interface, ensuring a responsive and accessible experience across devices.",
-      image: "/placeholder.svg?height=300&width=300",
-      links: {
-        github: "https://github.com",
-        linkedin: "https://linkedin.com",
-      },
-    },
-    {
-      name: "Sadiq Izzuddeen",
-      role: "AI Integration Specialist",
-      bio: "Developed the AI-powered features including the chat assistant and resume analyzer components.",
-      image: "/placeholder.svg?height=300&width=300",
-      links: {
-        github: "https://github.com",
-        linkedin: "https://linkedin.com",
-      },
-    },
-    {
-      name: "John Paul",
-      role: "Backend Developer",
-      bio: "Implemented the API endpoints and database integration for storing and retrieving user data and career resources.",
+      bio: "A seasoned software engineer and tech innovator passionate about building smart, impactful solutions..",
       image: "/placeholder.svg?height=300&width=300",
       links: {
         github: "https://github.com",
@@ -80,20 +50,20 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="md:w-2/3">
-              <Badge className="mb-4">Hackathon Project</Badge>
-              <h2 className="text-3xl font-bold mb-4">Skyline University Hackathon</h2>
+              <Badge className="mb-4">TechPath Project</Badge>
+              <h2 className="text-3xl font-bold mb-4">BiFusion Labs</h2>
               <div className="flex flex-wrap gap-4 mb-4">
                 <div className="flex items-center text-sm text-slate-600">
                   <Calendar className="mr-2 h-4 w-4" />
-                  <span>April 2025</span>
+                  <span>April 2024</span>
                 </div>
                 <div className="flex items-center text-sm text-slate-600">
                   <MapPin className="mr-2 h-4 w-4" />
-                  <span>Skyline University</span>
+                  <span>Nigeria</span>
                 </div>
               </div>
               <p className="text-slate-700 mb-6">
-                TechPathAI was developed during the Skyline University Hackathon, where our team identified the
+                TechPathAI was developed to address a profound issue, we identified the
                 challenge many students face when choosing a tech career path. We created this platform to provide
                 personalized guidance using AI to help students discover careers that match their skills, interests, and
                 goals.
@@ -209,7 +179,7 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold mb-4">Get In Touch</h2>
         <p className="text-slate-600 mb-8">Have questions or feedback? We'd love to hear from you!</p>
         <Button asChild size="lg">
-          <Link href="mailto:contact@techpathai.com">Contact Us</Link>
+          <Link href="mailto:lunetechng@gmail.com">Contact Us</Link>
         </Button>
       </div>
     </main>
