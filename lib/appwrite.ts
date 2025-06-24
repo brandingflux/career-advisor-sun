@@ -29,4 +29,10 @@ export type QuizResponse = {
   createdAt: string;
 };
 
+// Helper to force-clear session cache
+export const clearAppwriteSessionCache = () => {
+  (client as any)['cookieFallback'] = null
+  (client as any)['headersFallback'] = null
+}
+
 export { client };

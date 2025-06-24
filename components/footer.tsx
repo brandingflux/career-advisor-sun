@@ -96,7 +96,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-slate-200">
           <p className="text-slate-600 text-sm text-center">
-            © {new Date().getFullYear()} TechPathAI. Bifusion Tech LTD.
+            © {new Date().getFullYear()} TechPathAI. HAMAD for Bifusion Tech LTD.
           </p>
         </div>
       </div>

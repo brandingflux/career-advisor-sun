@@ -28,7 +28,7 @@ export const saveQuizResponse = async (
 
   try {
     await databases.createDocument(
-      '6848e0db00083ba0002f', // database ID
+      'careeradvisor', // database ID
       '6848e0a5002af72523a0', // collection ID
       'unique()', // auto-generated document ID
       {

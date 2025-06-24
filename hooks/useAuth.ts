@@ -10,8 +10,10 @@ export const useAuth = () => {
     const getUser = async () => {
       try {
         const currentUser = await account.get()
+        console.log('🟢 Authenticated as:', currentUser.name)
         setUser(currentUser)
       } catch (err) {
+        console.log('🔴 Not logged in')
         setUser(null)
       } finally {
         setLoading(false)
